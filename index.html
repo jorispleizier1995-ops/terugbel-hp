@@ -190,6 +190,15 @@
       <div class="field"><label>Omschrijving<span class="req">*</span></label><textarea id="algemeenVeld" placeholder="Waar gaat het gesprek over?"></textarea></div>
     </div>
 
+    <!-- INGEDIEND DOOR -->
+    <div class="section-label" style="margin-top:1.2rem;">Terugbelverzoek van</div>
+    <div class="pill-group" id="indienerGrid">
+      <button class="pill" onclick="selectPill('indienerGrid',this)">Joris</button>
+      <button class="pill" onclick="selectPill('indienerGrid',this)">Richard</button>
+      <button class="pill" onclick="selectPill('indienerGrid',this)">Maarten</button>
+      <button class="pill" onclick="selectPill('indienerGrid',this)">Stagiair</button>
+    </div>
+
     <!-- PRIORITEIT -->
     <div class="section-label" style="margin-top:1.2rem;">Prioriteit</div>
     <div class="pill-group" id="prioGrid">
@@ -231,13 +240,14 @@
 </div>
 
 <script>
-  let selectedType='', selectedPrio='hoog', selectedReden='', selectedBedrijf='';
+  let selectedType='', selectedPrio='hoog', selectedReden='', selectedBedrijf='', selectedIndiener='';
   const redenWraps = ['aanvraagWrap','leveringWrap','planningWrap','factuurWrap','algemeenWrap'];
 
   function selectPill(gridId,el){
     document.querySelectorAll('#'+gridId+' .pill').forEach(b=>b.classList.remove('active'));
     el.classList.add('active');
     if(gridId==='typeGrid') selectedType=el.textContent.trim();
+    if(gridId==='indienerGrid') selectedIndiener=el.textContent.trim();
   }
   function selectPrio(el,level){
     document.querySelectorAll('#prioGrid .pill').forEach(b=>b.classList.remove('active'));
@@ -286,7 +296,7 @@
     t+='Telefoon: '+(tel||'—')+'\n';
     if(emailKlant) t+='E-mail: '+emailKlant+'\n';
     t+='Type: '+(selectedType||'onbekend')+'\n\n';
-    t+='CONTACT\nReden: '+redenLabel()+'\nPrioriteit: '+prioLabel()+'\n\n';
+    t+='CONTACT\nReden: '+redenLabel()+'\nPrioriteit: '+prioLabel()+'\nIngediend door: '+(selectedIndiener||'onbekend')+'\n\n';
     t+='OMSCHRIJVING\n'+getOmschrijving()+'\n';
     if(selectedReden==='levering'){
       const r=document.getElementById('leveringRelatie').value.trim();
@@ -327,6 +337,7 @@
     const tel=document.getElementById('telefoon').value.trim();
     if(!naam||!tel){ showToast('Vul minimaal naam en telefoonnummer in.','error'); return false; }
     if(!selectedReden){ showToast('Selecteer een reden voor het contact.','error'); return false; }
+    if(!selectedIndiener){ showToast('Selecteer wie dit verzoek instuurt.','error'); return false; }
     const omsch=getOmschrijving();
     if(!omsch){ showToast('Vul een omschrijving in.','error'); return false; }
     if(selectedReden==='levering'){
