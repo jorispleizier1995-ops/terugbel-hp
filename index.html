@@ -148,19 +148,34 @@
       <div class="row3">
         <div class="field"><label>Meters</label><input type="text" id="meters" placeholder="bijv. 25m"></div>
         <div class="field"><label>Hoogte</label>
-          <select id="hoogte">
+          <select id="hoogte" onchange="toggleHoogteAnders(this)">
             <option value="">— onbekend —</option>
-            <option>800mm</option><option>1000mm</option><option>1200mm</option>
-            <option>1400mm</option><option>1500mm</option><option>1600mm</option>
-            <option>1800mm</option><option>2000mm</option><option>Anders</option>
+            <option>800mm</option>
+            <option>1000mm</option>
+            <option>1200mm</option>
+            <option>1400mm</option>
+            <option>1500mm</option>
+            <option>1600mm</option>
+            <option>1800mm</option>
+            <option>2000mm</option>
+            <option value="Anders">Anders, namelijk...</option>
           </select>
+          <input type="text" id="hoogteAnders" placeholder="Bijv. 2200mm" style="margin-top:6px;display:none;">
         </div>
         <div class="field"><label>Product</label>
-          <select id="product">
+          <select id="product" onchange="toggleProductAnders(this)">
             <option value="">— onbekend —</option>
-            <option>DSM panelen</option><option>Poort (enkel)</option><option>Poort (dubbel)</option>
-            <option>Aluminium hekwerk</option><option>Spijlenhek</option><option>Gaashek</option><option>Anders</option>
+            <option>DSM 6/5/6</option>
+            <option>DSM 8/6/8</option>
+            <option>Enkele poort</option>
+            <option>Dubbele poort</option>
+            <option>Schuifpoort</option>
+            <option>Sierhekwerk</option>
+            <option>Spijlenhekwerk</option>
+            <option>Harmonicagaas</option>
+            <option value="Anders">Anders, namelijk...</option>
           </select>
+          <input type="text" id="productAnders" placeholder="Omschrijf het product" style="margin-top:6px;display:none;">
         </div>
       </div>
     </div>
@@ -293,6 +308,16 @@
     return m[selectedReden]||'Onbekend';
   }
 
+  function toggleProductAnders(sel){
+    var el = document.getElementById('productAnders');
+    el.style.display = sel.value === 'Anders' ? 'block' : 'none';
+    if(sel.value !== 'Anders') el.value = '';
+  }
+  function toggleHoogteAnders(sel){
+    var el = document.getElementById('hoogteAnders');
+    el.style.display = sel.value === 'Anders' ? 'block' : 'none';
+    if(sel.value !== 'Anders') el.value = '';
+  }
   function getOmschrijving(){
     if(selectedReden==='aanvraag') return document.getElementById('aanvraagVeld').value.trim();
     if(selectedReden==='levering') return document.getElementById('leveringVeld').value.trim();
