@@ -26,7 +26,7 @@ export default async (req) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      from: 'Terugbelformulier <notitie@hekwerk-partners.nl>',
+      from: 'Terugbelformulier <onboarding@resend.dev>',
       to: [naar],
       subject: onderwerp,
       text: inhoud
