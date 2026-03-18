@@ -1,2 +1,6 @@
 node_modules/
 .netlify/
+*_b64.txt
+*_raw.png
+index_full.html
+index_small.html
