@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terugbelnotitie — Hekwerk & Partners</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #84BD00;
+    --green-dark: #5a8200;
+    --green-light: #edf7d6;
+    --anthracite: #63666A;
+    --anthracite-dark: #3d3f42;
+    --red: #d44;
+    --amber: #d48c00;
+    --blue-info: #1a6abf;
+    --radius: 10px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.10);
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f0f1ee;
+    color: #1a1a1a;
+    min-height: 100vh;
+    padding: 0 0 4rem;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: #63666A;
+    padding: 1rem 1.6rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .site-header img { height: 40px; width: auto; }
+  .site-header-text {
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.4;
+  }
+  .site-header-text strong { color: #fff; font-weight: 500; }
+
+  /* ── CARD ── */
+  .card {
+    max-width: 640px;
+    margin: 1.6rem auto 0;
+    background: #fff;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  .card-title-bar {
+    background: var(--green);
+    padding: 1rem 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .card-title-bar h1 { font-size: 16px; font-weight: 600; color: #fff; }
+  .card-title-bar p { font-size: 12px; color: rgba(255,255,255,0.82); margin-top: 2px; }
+
+  .card-body { padding: 1.4rem 1.6rem 1.8rem; }
+
+  /* ── SECTIONS ── */
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #aaa;
+    margin: 1.4rem 0 0.55rem;
+  }
+  .section-label:first-child { margin-top: 0; }
+  .divider { border: none; border-top: 1px solid #eee; margin: 1.3rem 0; }
+
+  /* ── FIELDS ── */
+  .field { margin-bottom: 11px; }
+  label { display: block; font-size: 12.5px; color: #666; margin-bottom: 3px; }
+  .req { color: var(--red); margin-left: 2px; }
+  input[type=text], input[type=tel], input[type=email], select, textarea {
+    width: 100%;
+    padding: 9px 11px;
+    font-size: 14px;
+    font-family: inherit;
+    color: #1a1a1a;
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 7px;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(132,189,0,0.12);
+    background: #fff;
+  }
+  textarea { resize: vertical; min-height: 72px; }
+  select { cursor: pointer; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; }
+  .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  @media(max-width:500px){ .row2,.row3 { grid-template-columns: 1fr; } }
+
+  /* ── PILLS ── */
+  .pill-group { display: flex; flex-wrap: wrap; gap: 7px; }
+  .pill {
+    padding: 6px 14px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 20px;
+    font-size: 13px;
+    background: #fafafa;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.12s;
+    font-family: inherit;
+  }
+  .pill:hover { border-color: var(--green); color: var(--green-dark); }
+  .pill.active { background: var(--green); border-color: var(--green); color: #fff; font-weight: 500; }
+  .pill.prio-laag.active { background: #2ea06b; border-color: #2ea06b; }
+  .pill.prio-midden.active { background: var(--amber); border-color: var(--amber); }
+  .pill.prio-hoog.active { background: var(--red); border-color: var(--red); }
+
+  /* ── REDEN GRID ── */
+  .reden-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  @media(max-width:500px){ .reden-grid { grid-template-columns: 1fr 1fr; } }
+  .reden-btn {
+    padding: 10px 8px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 12.5px;
+    background: #fafafa;
+    color: #555;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.12s;
+    font-family: inherit;
+    line-height: 1.35;
+  }
+  .reden-btn:hover { border-color: var(--green); color: var(--green-dark); background: var(--green-light); }
+  .reden-btn.active { background: var(--green-light); border-color: var(--green); color: var(--green-dark); font-weight: 600; }
+  .reden-icon { font-size: 18px; display: block; margin-bottom: 3px; }
+
+  /* ── BEDRIJF SELECTOR ── */
+  .bedrijf-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .bedrijf-btn {
+    padding: 10px 8px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 12px;
+    background: #fafafa;
+    color: #555;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.12s;
+    font-family: inherit;
+    font-weight: 500;
+  }
+  .bedrijf-btn:hover { border-color: var(--green); color: var(--green-dark); background: var(--green-light); }
+  .bedrijf-btn.active { background: var(--green); border-color: var(--green); color: #fff; }
+  .bedrijf-sub { font-size: 10.5px; font-weight: 400; display: block; margin-top: 2px; opacity: 0.8; }
+
+  /* ── AANVRAAG FIELDS ── */
+  .aanvraag-fields { display: none; }
+  .aanvraag-fields.visible { display: block; }
+  .algemeen-wrap { display: none; }
+  .algemeen-wrap.visible { display: block; }
+
+  /* ── EMAIL KNOPPEN ── */
+  .email-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  @media(max-width:500px){ .email-grid { grid-template-columns: 1fr; } }
+  .email-btn {
+    padding: 11px 13px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 8px;
+    background: #fafafa;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+    transition: all 0.13s;
+    color: #333;
+  }
+  .email-btn:hover { border-color: var(--green); background: var(--green-light); }
+  .email-btn:active { transform: scale(0.98); }
+  .email-btn strong { display: block; font-size: 13px; color: #1a1a1a; margin-bottom: 2px; }
+  .email-btn span { font-size: 11px; color: #999; }
+
+  .btn-kopieer {
+    width: 100%;
+    margin-top: 8px;
+    padding: 10px;
+    border: 1.5px dashed #ddd;
+    border-radius: 8px;
+    background: transparent;
+    font-size: 13px;
+    color: #888;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.12s;
+  }
+  .btn-kopieer:hover { border-color: #aaa; color: #555; background: #f5f5f5; }
+
+  /* ── TOAST ── */
+  .toast { display:none; margin-top:12px; padding:10px 14px; border-radius:8px; font-size:13px; }
+  .toast.success { background:var(--green-light); border:1px solid var(--green); color:var(--green-dark); }
+  .toast.error { background:#fdeaea; border:1px solid var(--red); color:#900; }
+  .toast.info { background:#e6f0fb; border:1px solid #5b9bd5; color:var(--blue-info); }
+
+  .timestamp { font-size:11px; color:#ccc; margin-top:8px; text-align:right; }
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <img src="LOGO_REMOVED" alt="Hekwerk & Partners">
+  <div class="site-header-text">
+    <strong>Interne tool</strong><br>
+    Terugbelnotities
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title-bar">
+    <div>
+      <h1>Terugbelverzoek</h1>
+    </div>
+  </div>
+
+  <div class="card-body">
+
+    <!-- BEDRIJF -->
+    <div class="section-label">Bedrijf</div>
+    <div class="bedrijf-grid" id="bedrijfGrid">
+      <button class="bedrijf-btn" onclick="selectBedrijf(this,'Hekwerk & Partners')">
+        Hekwerk &amp; Partners
+        <span class="bedrijf-sub">Groothandel &amp; montage</span>
+      </button>
+      <button class="bedrijf-btn" onclick="selectBedrijf(this,'Hek-online')">
+        Hek-online
+        <span class="bedrijf-sub">hek-online.nl</span>
+      </button>
+      <button class="bedrijf-btn" onclick="selectBedrijf(this,'Hek-kopen')">
+        Hek-kopen
+        <span class="bedrijf-sub">hek-kopen.nl</span>
+      </button>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- REDEN -->
+    <div class="section-label">Reden contact</div>
+    <div class="reden-grid" id="redenGrid">
+      <button class="reden-btn" onclick="selectReden(this,'aanvraag')">
+        <span class="reden-icon">📋</span>Aanvraag / offerte
+      </button>
+      <button class="reden-btn" onclick="selectReden(this,'levering')">
+        <span class="reden-icon">🚚</span>Levering / order
+      </button>
+      <button class="reden-btn" onclick="selectReden(this,'planning')">
+        <span class="reden-icon">📅</span>Planning / montage
+      </button>
+      <button class="reden-btn" onclick="selectReden(this,'klacht')">
+        <span class="reden-icon">⚠️</span>Klacht / probleem
+      </button>
+      <button class="reden-btn" onclick="selectReden(this,'factuur')">
+        <span class="reden-icon">💶</span>Factuur / betaling
+      </button>
+      <button class="reden-btn" onclick="selectReden(this,'anders')">
+        <span class="reden-icon">💬</span>Anders
+      </button>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- KLANTGEGEVENS -->
+    <div class="section-label">Klantgegevens</div>
+    <div class="row2">
+      <div class="field">
+        <label>Naam<span class="req">*</span></label>
+        <input type="text" id="naam" placeholder="Voor- en achternaam">
+      </div>
+      <div class="field">
+        <label>Bedrijfsnaam klant</label>
+        <input type="text" id="bedrijfKlant" placeholder="Optioneel">
+      </div>
+    </div>
+    <div class="row2">
+      <div class="field">
+        <label>Telefoonnummer<span class="req">*</span></label>
+        <input type="tel" id="telefoon" placeholder="06-12345678">
+      </div>
+      <div class="field">
+        <label>E-mailadres</label>
+        <input type="email" id="email" placeholder="optioneel">
+      </div>
+    </div>
+
+    <!-- TYPE KLANT -->
+    <div class="section-label">Type klant</div>
+    <div class="pill-group" id="typeGrid">
+      <button class="pill" onclick="selectPill('typeGrid',this)">Particulier</button>
+      <button class="pill" onclick="selectPill('typeGrid',this)">Hovenier</button>
+      <button class="pill" onclick="selectPill('typeGrid',this)">Hekwerker</button>
+    </div>
+
+    <!-- AANVRAAG FIELDS -->
+    <div class="aanvraag-fields" id="aanvraagFields">
+      <div class="divider"></div>
+      <div class="section-label">Aanvraag details</div>
+      <div class="field">
+        <label>Omschrijving<span class="req">*</span></label>
+        <textarea id="omschrijving" placeholder="Bijv: 40m DSM hekwerk 1200mm hoog. Wil prijs + levertijd weten."></textarea>
+      </div>
+      <div class="row3">
+        <div class="field">
+          <label>Meters (schatting)</label>
+          <input type="text" id="meters" placeholder="bijv. 25m">
+        </div>
+        <div class="field">
+          <label>Hoogte</label>
+          <select id="hoogte">
+            <option value="">— onbekend —</option>
+            <option>800mm</option><option>1000mm</option><option>1200mm</option>
+            <option>1400mm</option><option>1500mm</option><option>1600mm</option>
+            <option>1800mm</option><option>2000mm</option><option>Anders</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Product</label>
+          <select id="product">
+            <option value="">— onbekend —</option>
+            <option>DSM panelen</option><option>Poort (enkel)</option>
+            <option>Poort (dubbel)</option><option>Aluminium hekwerk</option>
+            <option>Spijlenhek</option><option>Gaashek</option><option>Anders</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEVERING VELDEN -->
+    <div class="algemeen-wrap" id="leveringWrap">
+      <div class="divider"></div>
+      <div class="section-label">Order identificatie</div>
+      <div class="row2">
+        <div class="field">
+          <label>Relatienummer</label>
+          <input type="text" id="relatienummer" placeholder="bijv. 1042">
+        </div>
+        <div class="field">
+          <label>Ordernummer</label>
+          <input type="text" id="ordernummer" placeholder="bijv. 2024-0381">
+        </div>
+      </div>
+      <p id="leveringWaarschuwing" style="display:none;font-size:12px;color:#e07000;margin-bottom:10px;">Vul minimaal relatienummer of ordernummer in</p>
+      <div class="field">
+        <label>Omschrijving<span class="req">*</span></label>
+        <textarea id="leveringVeld" placeholder="Waar gaat het over? Bijv: order nog niet ontvangen, verkeerd product..."></textarea>
+      </div>
+    </div>
+
+    <!-- ALGEMEEN VELD -->
+    <div class="algemeen-wrap" id="algemeenWrap">
+      <div class="divider"></div>
+      <div class="field">
+        <label>Omschrijving<span class="req">*</span></label>
+        <textarea id="algemeenVeld" placeholder="Waar gaat het gesprek over?"></textarea>
+      </div>
+    </div>
+
+    <!-- KANAAL -->
+    <div class="section-label" style="margin-top:1.2rem;">Via welk kanaal?</div>
+    <div class="pill-group" id="kanaalGrid">
+      <button class="pill" onclick="selectPill('kanaalGrid',this)">Telefoon</button>
+      <button class="pill" onclick="selectPill('kanaalGrid',this)">Mail</button>
+      <button class="pill" onclick="selectPill('kanaalGrid',this)">WhatsApp</button>
+      <button class="pill" onclick="selectPill('kanaalGrid',this)">Website</button>
+    </div>
+
+    <!-- PRIORITEIT -->
+    <div class="section-label" style="margin-top:1.2rem;">Prioriteit</div>
+    <div class="pill-group" id="prioGrid">
+      <button class="pill prio-laag" onclick="selectPrio(this,'laag')">Kan wachten</button>
+      <button class="pill prio-midden" onclick="selectPrio(this,'midden')">Vandaag / morgen</button>
+      <button class="pill prio-hoog active" onclick="selectPrio(this,'hoog')">🔴 Spoed</button>
+    </div>
+
+    <!-- NOTITIES -->
+    <div class="field" style="margin-top:1.2rem;">
+      <label>Extra notities</label>
+      <textarea id="notities" placeholder="Bijv: klant belde eerder, wil antwoord voor donderdag..." style="min-height:52px;"></textarea>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- EMAIL KNOPPEN -->
+    <div class="section-label">Stuur notitie naar</div>
+    <div class="email-grid">
+      <button class="email-btn" onclick="stuurMail('info@hekwerk-partners.nl','Algemeen')">
+        <strong>📨 Terugbellen Algemeen</strong>
+        <span>info@hekwerk-partners.nl</span>
+      </button>
+      <button class="email-btn" onclick="stuurMail('joris@hekwerk-partners.nl','Joris')">
+        <strong>📨 Terugbellen Joris</strong>
+        <span>joris@hekwerk-partners.nl</span>
+      </button>
+      <button class="email-btn" onclick="stuurMail('maarten@hekwerk-partners.nl','Maarten')">
+        <strong>📨 Terugbellen Maarten</strong>
+        <span>maarten@hekwerk-partners.nl</span>
+      </button>
+      <button class="email-btn" onclick="stuurMail('richard@hekwerk-partners.nl','Richard')">
+        <strong>📨 Terugbellen Richard</strong>
+        <span>richard@hekwerk-partners.nl</span>
+      </button>
+    </div>
+    <button class="btn-kopieer" onclick="kopieer()">📋 Alleen kopiëren (geen mail)</button>
+
+    <div class="toast" id="toast"></div>
+    <div class="timestamp" id="ts"></div>
+  </div>
+</div>
+
+<script>
+  let selectedType='', selectedPrio='hoog', selectedKanaal='', selectedReden='', selectedBedrijf='';
+
+  function selectPill(gridId,el){
+    document.querySelectorAll('#'+gridId+' .pill').forEach(b=>b.classList.remove('active'));
+    el.classList.add('active');
+    if(gridId==='typeGrid') selectedType=el.textContent.trim();
+    if(gridId==='kanaalGrid') selectedKanaal=el.textContent.trim();
+  }
+  function selectPrio(el,level){
+    document.querySelectorAll('#prioGrid .pill').forEach(b=>b.classList.remove('active'));
+    el.classList.add('active'); selectedPrio=level;
+  }
+  function selectBedrijf(el,naam){
+    document.querySelectorAll('#bedrijfGrid .bedrijf-btn').forEach(b=>b.classList.remove('active'));
+    el.classList.add('active'); selectedBedrijf=naam;
+  }
+  function selectReden(el,reden){
+    document.querySelectorAll('#redenGrid .reden-btn').forEach(b=>b.classList.remove('active'));
+    el.classList.add('active'); selectedReden=reden;
+    document.getElementById('aanvraagFields').classList.toggle('visible', reden==='aanvraag');
+    document.getElementById('leveringWrap').classList.toggle('visible', reden==='levering');
+    document.getElementById('algemeenWrap').classList.toggle('visible', reden!=='aanvraag' && reden!=='levering' && reden!=='');
+  }
+  function prioLabel(){ return selectedPrio==='hoog'?'🔴 Spoed':selectedPrio==='midden'?'Vandaag/morgen':'Kan wachten'; }
+  function redenLabel(){
+    const m={aanvraag:'Aanvraag / offerte',levering:'Levering / order',planning:'Planning / montage',klacht:'Klacht / probleem',factuur:'Factuur / betaling',anders:'Anders'};
+    return m[selectedReden]||'Niet opgegeven';
+  }
+  function buildTekst(){
+    const now=new Date();
+    const ts=now.toLocaleDateString('nl-NL',{weekday:'long',day:'numeric',month:'long',year:'numeric'})+' om '+now.toLocaleTimeString('nl-NL',{hour:'2-digit',minute:'2-digit'});
+    const naam=document.getElementById('naam').value.trim();
+    const bedrijfKlant=document.getElementById('bedrijfKlant').value.trim();
+    const tel=document.getElementById('telefoon').value.trim();
+    const emailVal=document.getElementById('email').value.trim();
+    const notities=document.getElementById('notities').value.trim();
+    let omschrijving='';
+    if(selectedReden==='aanvraag') omschrijving=document.getElementById('omschrijving').value.trim();
+    else if(selectedReden==='levering') omschrijving=document.getElementById('leveringVeld').value.trim();
+    else omschrijving=document.getElementById('algemeenVeld').value.trim();
+    const relatienummer=document.getElementById('relatienummer').value.trim();
+    const ordernummer=document.getElementById('ordernummer').value.trim();
+    const meters=document.getElementById('meters').value.trim();
+    const hoogte=document.getElementById('hoogte').value;
+    const product=document.getElementById('product').value;
+    let t='=== TERUGBELNOTITIE ===\n';
+    t+='Datum: '+ts+'\n';
+    t+='Bedrijf: '+(selectedBedrijf||'niet opgegeven')+'\n\n';
+    t+='KLANT\n';
+    t+='Naam: '+(naam||'—')+'\n';
+    if(bedrijfKlant) t+='Bedrijf klant: '+bedrijfKlant+'\n';
+    t+='Telefoon: '+(tel||'—')+'\n';
+    if(emailVal) t+='E-mail: '+emailVal+'\n';
+    t+='Type: '+(selectedType||'onbekend')+'\n\n';
+    t+='CONTACT\n';
+    t+='Reden: '+redenLabel()+'\n';
+    t+='Kanaal: '+(selectedKanaal||'onbekend')+'\n';
+    t+='Prioriteit: '+prioLabel()+'\n\n';
+    t+='OMSCHRIJVING\n'+(omschrijving||'—')+'\n';
+    if(selectedReden==='aanvraag'){
+      if(meters) t+='Meters: '+meters+'\n';
+      if(hoogte) t+='Hoogte: '+hoogte+'\n';
+      if(product) t+='Product: '+product+'\n';
+    }
+    if(selectedReden==='levering'){
+      if(relatienummer) t+='Relatienummer: '+relatienummer+'\n';
+      if(ordernummer) t+='Ordernummer: '+ordernummer+'\n';
+    }
+    if(notities) t+='\nNOTITIES\n'+notities+'\n';
+    t+='\n======================';
+    return t;
+  }
+  function validate(){
+    const naam=document.getElementById('naam').value.trim();
+    const tel=document.getElementById('telefoon').value.trim();
+    let omsch='';
+    if(selectedReden==='aanvraag') omsch=document.getElementById('omschrijving').value.trim();
+    else if(selectedReden==='levering') omsch=document.getElementById('leveringVeld').value.trim();
+    else omsch=document.getElementById('algemeenVeld').value.trim();
+    if(!naam||!tel||!omsch){ showToast('Vul minimaal naam, telefoonnummer en omschrijving in.','error'); return false; }
+    if(selectedReden==='levering'){
+      const rel=document.getElementById('relatienummer').value.trim();
+      const ord=document.getElementById('ordernummer').value.trim();
+      if(!rel && !ord){
+        document.getElementById('leveringWaarschuwing').style.display='block';
+        showToast('Vul een relatienummer of ordernummer in.','error');
+        return false;
+      }
+      document.getElementById('leveringWaarschuwing').style.display='none';
+    }
+    return true;
+  }
+  function showToast(msg,type){
+    const t=document.getElementById('toast');
+    t.className='toast '+type; t.textContent=msg; t.style.display='block';
+    setTimeout(()=>{ t.style.display='none'; },4000);
+  }
+  function stuurMail(adres,naam_ontvanger){
+    if(!validate()) return;
+    const tekst=buildTekst();
+    const klantNaam=document.getElementById('naam').value.trim();
+    const subject=encodeURIComponent('Terugbellen: '+klantNaam+' — '+redenLabel()+(selectedBedrijf?' ['+selectedBedrijf+']':''));
+    const body=encodeURIComponent(tekst);
+    window.location.href='mailto:'+adres+'?subject='+subject+'&body='+body;
+    const now=new Date();
+    document.getElementById('ts').textContent='Mail geopend voor '+naam_ontvanger+' om '+now.toLocaleTimeString('nl-NL',{hour:'2-digit',minute:'2-digit'});
+    showToast('Mail-app geopend voor '+naam_ontvanger+'.','success');
+  }
+  function kopieer(){
+    if(!validate()) return;
+    navigator.clipboard.writeText(buildTekst()).then(()=>{ showToast('Notitie gekopieerd naar klembord.','info'); }).catch(()=>{ showToast('Kopiëren mislukt.','error'); });
+  }
+</script>
+</body>
+</html>

@@ -411,24 +411,21 @@
   async function stuurMail(naar, naamOntvanger, btn){
     if(!validate()) return;
     btn.classList.add('loading');
-    const inhoud = buildInhoud();
     const onderwerp = buildOnderwerp();
-    const formData = new FormData();
-    formData.append('form-name', 'terugbelverzoek');
-    formData.append('ontvanger', naar);
-    formData.append('ontvanger-naam', naamOntvanger);
-    formData.append('onderwerp', onderwerp);
-    formData.append('inhoud', inhoud);
-    // Honeypot
-    formData.append('bot-field', '');
+    const inhoud = buildInhoud();
     try {
-      const res = await fetch('/', { method: 'POST', body: formData });
-      if(res.ok){
+      const res = await fetch('/stuur-mail', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({naar, onderwerp, inhoud})
+      });
+      const data = await res.json();
+      if(data.ok){
         showToast('✓ Verstuurd naar '+naamOntvanger+'!','success');
         const now = new Date();
         document.getElementById('ts').textContent = 'Verzonden om '+now.toLocaleTimeString('nl-NL',{hour:'2-digit',minute:'2-digit'});
       } else {
-        showToast('Fout bij versturen. Probeer opnieuw.','error');
+        showToast('Fout: '+data.fout,'error');
       }
     } catch(e){
       showToast('Verbindingsfout. Probeer opnieuw.','error');
