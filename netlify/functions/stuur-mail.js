@@ -1,5 +1,3 @@
-import { createTransport } from 'nodemailer';
-
 const TOEGESTANE_ADRESSEN = [
   'info@hekwerk-partners.nl',
   'joris@hekwerk-partners.nl',
@@ -19,25 +17,28 @@ export default async (req) => {
     return new Response(JSON.stringify({ ok: false, fout: 'Ongeldig e-mailadres' }), { status: 400 });
   }
 
-  const transporter = createTransport({
-    host: 'hekwerkpartners-nl01i.mail.protection.outlook.com',
-    port: 25,
-    secure: false,
-    tls: { rejectUnauthorized: false },
-    ignoreTLS: true
-  });
+  const apiKey = Netlify.env.get('RESEND_API_KEY');
 
-  try {
-    await transporter.sendMail({
-      from: 'Terugbelformulier <info@hekwerk-partners.nl>',
-      to: naar,
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      from: 'Terugbelformulier HP <onboarding@resend.dev>',
+      to: [naar],
       subject: onderwerp,
       text: inhoud
-    });
-    return new Response(JSON.stringify({ ok: true }), { status: 200 });
-  } catch (err) {
-    return new Response(JSON.stringify({ ok: false, fout: err.message }), { status: 500 });
+    })
+  });
+
+  if (!res.ok) {
+    const err = await res.text();
+    return new Response(JSON.stringify({ ok: false, fout: err }), { status: 500 });
   }
+
+  return new Response(JSON.stringify({ ok: true }), { status: 200 });
 };
 
 export const config = {
