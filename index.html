@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Terugbelverzoek — Hekwerk & Partners</title>
+<title>Terugbelverzoek â Hekwerk & Partners</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -12,7 +12,9 @@
     --shadow: 0 4px 24px rgba(0,0,0,0.10);
   }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f0f1ee; color: #1a1a1a; min-height: 100vh; padding: 0 0 4rem; }
-  .site-header { background: #1a1f2e; padding: 0.9rem 1.6rem; display: flex; align-items: center; gap: 1rem; min-height: 64px; }
+  .site-header { background: #1a1f2e; padding: 0.9rem 1.6rem; display: flex; align-items: center; gap: 1rem; min-height: 64px; transition: background 0.3s; }
+  .site-header img#headerLogo { height: 36px; width: auto; transition: opacity 0.2s; }
+  .site-header-badge { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.08); border-radius: 4px; padding: 3px 8px; margin-left: auto; }
   .card { max-width: 640px; margin: 1.6rem auto 0; background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
   .card-title-bar { background: var(--green); padding: 1rem 1.6rem; }
   .card-title-bar h1 { font-size: 16px; font-weight: 600; color: #fff; }
@@ -75,8 +77,8 @@
 <body>
 
 <div class="site-header">
-  <div style="color:#fff;font-weight:700;font-size:18px;"><span style="color:#84BD00">H</span>&amp;P</div>
-  <div style="color:rgba(255,255,255,0.7);font-size:13px;margin-left:8px;">Interne tool &mdash; Terugbelverzoeken</div>
+  <img id="headerLogo" src="/logo-hp.png" alt="Hekwerk & Partners" style="height:36px;width:auto;object-fit:contain;">
+  <div style="color:rgba(255,255,255,0.6);font-size:12px;margin-left:8px;" id="headerSub">Interne tool &mdash; Terugbelverzoeken</div>
 </div>
 
 <div class="card">
@@ -94,12 +96,12 @@
 
     <div class="section-label">Reden contact</div>
     <div class="reden-grid" id="redenGrid">
-      <button class="reden-btn" onclick="selectReden(this,'aanvraag')"><span class="reden-icon">&#x1F4CB;</span>Aanvraag / offerte</button>
-      <button class="reden-btn" onclick="selectReden(this,'levering')"><span class="reden-icon">&#x1F69A;</span>Levering / order</button>
-      <button class="reden-btn" onclick="selectReden(this,'planning')"><span class="reden-icon">&#x1F4C5;</span>Planning / montage</button>
-      <button class="reden-btn" onclick="selectReden(this,'klacht')"><span class="reden-icon">&#x26A0;&#xFE0F;</span>Klacht / probleem</button>
-      <button class="reden-btn" onclick="selectReden(this,'factuur')"><span class="reden-icon">&#x1F4B6;</span>Factuur / betaling</button>
-      <button class="reden-btn" onclick="selectReden(this,'anders')"><span class="reden-icon">&#x1F4AC;</span>Anders</button>
+      <button class="reden-btn" onclick="selectReden(this,'aanvraag')"><span class="reden-icon">ð</span>Aanvraag / offerte</button>
+      <button class="reden-btn" onclick="selectReden(this,'levering')"><span class="reden-icon">ð</span>Levering / order</button>
+      <button class="reden-btn" onclick="selectReden(this,'planning')"><span class="reden-icon">ð</span>Planning / montage</button>
+      <button class="reden-btn" onclick="selectReden(this,'klacht')"><span class="reden-icon">â ï¸</span>Klacht / probleem</button>
+      <button class="reden-btn" onclick="selectReden(this,'factuur')"><span class="reden-icon">ð¶</span>Factuur / betaling</button>
+      <button class="reden-btn" onclick="selectReden(this,'anders')"><span class="reden-icon">ð¬</span>Anders</button>
     </div>
 
     <div class="divider"></div>
@@ -121,6 +123,7 @@
       <button class="pill" onclick="selectPill('typeGrid',this)">Hekwerker</button>
     </div>
 
+    <!-- AANVRAAG -->
     <div class="extra-wrap" id="aanvraagWrap">
       <div class="divider"></div>
       <div class="section-label">Aanvraag details</div>
@@ -129,7 +132,7 @@
         <div class="field"><label>Meters</label><input type="text" id="meters" placeholder="bijv. 25m"></div>
         <div class="field"><label>Hoogte</label>
           <select id="hoogte">
-            <option value="">onbekend</option>
+            <option value="">â onbekend â</option>
             <option>800mm</option><option>1000mm</option><option>1200mm</option>
             <option>1400mm</option><option>1500mm</option><option>1600mm</option>
             <option>1800mm</option><option>2000mm</option><option>Anders</option>
@@ -137,7 +140,7 @@
         </div>
         <div class="field"><label>Product</label>
           <select id="product">
-            <option value="">onbekend</option>
+            <option value="">â onbekend â</option>
             <option>DSM panelen</option><option>Poort (enkel)</option><option>Poort (dubbel)</option>
             <option>Aluminium hekwerk</option><option>Spijlenhek</option><option>Gaashek</option><option>Anders</option>
           </select>
@@ -145,6 +148,7 @@
       </div>
     </div>
 
+    <!-- LEVERING -->
     <div class="extra-wrap" id="leveringWrap">
       <div class="divider"></div>
       <div class="section-label">Order identificatie</div>
@@ -152,10 +156,11 @@
         <div class="field"><label>Relatienummer</label><input type="text" id="leveringRelatie" placeholder="bijv. 1042"></div>
         <div class="field"><label>Ordernummer</label><input type="text" id="leveringOrder" placeholder="bijv. 2024-0381"></div>
       </div>
-      <p class="waarschuwing" id="leveringWaarschuwing">Vul minimaal relatienummer of ordernummer in</p>
+      <p class="waarschuwing" id="leveringWaarschuwing">â ï¸ Vul minimaal relatienummer of ordernummer in</p>
       <div class="field"><label>Omschrijving<span class="req">*</span></label><textarea id="leveringVeld" placeholder="Bijv: order nog niet ontvangen, verkeerd product geleverd..."></textarea></div>
     </div>
 
+    <!-- PLANNING -->
     <div class="extra-wrap" id="planningWrap">
       <div class="divider"></div>
       <div class="section-label">Planning identificatie</div>
@@ -163,10 +168,11 @@
         <div class="field"><label>Relatienummer</label><input type="text" id="planningRelatie" placeholder="bijv. 1042"></div>
         <div class="field"><label>Ordernummer</label><input type="text" id="planningOrder" placeholder="bijv. 2024-0381"></div>
       </div>
-      <p class="waarschuwing" id="planningWaarschuwing">Vul minimaal relatienummer of ordernummer in</p>
+      <p class="waarschuwing" id="planningWaarschuwing">â ï¸ Vul minimaal relatienummer of ordernummer in</p>
       <div class="field"><label>Omschrijving<span class="req">*</span></label><textarea id="planningVeld" placeholder="Bijv: montagedatum wijzigen, extra materiaal nodig..."></textarea></div>
     </div>
 
+    <!-- FACTUUR -->
     <div class="extra-wrap" id="factuurWrap">
       <div class="divider"></div>
       <div class="section-label">Factuur identificatie</div>
@@ -174,20 +180,22 @@
         <div class="field"><label>Factuurnummer</label><input type="text" id="factuurNummer" placeholder="bijv. 2024-1234"></div>
         <div class="field"><label>Relatienummer</label><input type="text" id="factuurRelatie" placeholder="bijv. 1042"></div>
       </div>
-      <p class="waarschuwing" id="factuurWaarschuwing">Vul minimaal factuurnummer of relatienummer in</p>
+      <p class="waarschuwing" id="factuurWaarschuwing">â ï¸ Vul minimaal factuurnummer of relatienummer in</p>
       <div class="field"><label>Omschrijving<span class="req">*</span></label><textarea id="factuurVeld" placeholder="Bijv: factuur niet ontvangen, vraag over bedrag..."></textarea></div>
     </div>
 
+    <!-- ALGEMEEN (klacht / anders) -->
     <div class="extra-wrap" id="algemeenWrap">
       <div class="divider"></div>
       <div class="field"><label>Omschrijving<span class="req">*</span></label><textarea id="algemeenVeld" placeholder="Waar gaat het gesprek over?"></textarea></div>
     </div>
 
+    <!-- PRIORITEIT -->
     <div class="section-label" style="margin-top:1.2rem;">Prioriteit</div>
     <div class="pill-group" id="prioGrid">
       <button class="pill prio-laag" onclick="selectPrio(this,'laag')">Kan wachten</button>
       <button class="pill prio-midden" onclick="selectPrio(this,'midden')">Vandaag / morgen</button>
-      <button class="pill prio-hoog active" onclick="selectPrio(this,'hoog')">Spoed</button>
+      <button class="pill prio-hoog active" onclick="selectPrio(this,'hoog')">ð´ Spoed</button>
     </div>
 
     <div class="field" style="margin-top:1.2rem;">
@@ -200,19 +208,19 @@
     <div class="section-label">Stuur terugbelverzoek naar</div>
     <div class="email-grid">
       <button class="email-btn" id="btn-algemeen" onclick="stuurMail('info@hekwerk-partners.nl','Algemeen',this)">
-        <strong>Terugbellen Algemeen</strong><span>info@hekwerk-partners.nl</span>
+        <strong>ð¨ Algemeen</strong><span>info@hekwerk-partners.nl</span>
         <div class="spinner"></div>
       </button>
       <button class="email-btn" id="btn-joris" onclick="stuurMail('joris@hekwerk-partners.nl','Joris',this)">
-        <strong>Terugbellen Joris</strong><span>joris@hekwerk-partners.nl</span>
+        <strong>ð¨ Joris</strong><span>joris@hekwerk-partners.nl</span>
         <div class="spinner"></div>
       </button>
       <button class="email-btn" id="btn-maarten" onclick="stuurMail('maarten@hekwerk-partners.nl','Maarten',this)">
-        <strong>Terugbellen Maarten</strong><span>maarten@hekwerk-partners.nl</span>
+        <strong>ð¨ Maarten</strong><span>maarten@hekwerk-partners.nl</span>
         <div class="spinner"></div>
       </button>
       <button class="email-btn" id="btn-richard" onclick="stuurMail('richard@hekwerk-partners.nl','Richard',this)">
-        <strong>Terugbellen Richard</strong><span>richard@hekwerk-partners.nl</span>
+        <strong>ð¨ Richard</strong><span>richard@hekwerk-partners.nl</span>
         <div class="spinner"></div>
       </button>
     </div>
@@ -237,9 +245,16 @@
     document.querySelectorAll('#prioGrid .pill').forEach(b=>b.classList.remove('active'));
     el.classList.add('active'); selectedPrio=level;
   }
+  const logoMap = {
+    'Hekwerk & Partners': '/logo-hp.png',
+    'Hek-online': '/logo-hek-online.png',
+    'Hek-kopen': '/logo-hek-kopen.png'
+  };
   function selectBedrijf(el,naam){
     document.querySelectorAll('#bedrijfGrid .bedrijf-btn').forEach(b=>b.classList.remove('active'));
     el.classList.add('active'); selectedBedrijf=naam;
+    const logo = document.getElementById('headerLogo');
+    if(logoMap[naam]){ logo.src=logoMap[naam]; logo.alt=naam; }
   }
   function selectReden(el,reden){
     document.querySelectorAll('#redenGrid .reden-btn').forEach(b=>b.classList.remove('active'));
@@ -248,11 +263,13 @@
     const map = {aanvraag:'aanvraagWrap', levering:'leveringWrap', planning:'planningWrap', factuur:'factuurWrap', klacht:'algemeenWrap', anders:'algemeenWrap'};
     if(map[reden]) document.getElementById(map[reden]).classList.add('visible');
   }
+
   function prioLabel(){ return selectedPrio==='hoog'?'SPOED':selectedPrio==='midden'?'Vandaag/morgen':'Kan wachten'; }
   function redenLabel(){
     const m={aanvraag:'Aanvraag',levering:'Levering/order',planning:'Planning/montage',klacht:'Klacht',factuur:'Factuur',anders:'Overig'};
     return m[selectedReden]||'Onbekend';
   }
+
   function getOmschrijving(){
     if(selectedReden==='aanvraag') return document.getElementById('aanvraagVeld').value.trim();
     if(selectedReden==='levering') return document.getElementById('leveringVeld').value.trim();
@@ -260,6 +277,7 @@
     if(selectedReden==='factuur') return document.getElementById('factuurVeld').value.trim();
     return document.getElementById('algemeenVeld').value.trim();
   }
+
   function buildInhoud(){
     const now=new Date();
     const ts=now.toLocaleDateString('nl-NL',{weekday:'long',day:'numeric',month:'long',year:'numeric'})+' om '+now.toLocaleTimeString('nl-NL',{hour:'2-digit',minute:'2-digit'});
@@ -270,54 +288,57 @@
     const notities=document.getElementById('notities').value.trim();
     let t='=== TERUGBELVERZOEK ===\n';
     t+='Datum: '+ts+'\n';
-    t+='Bedrijf: '+(selectedBedrijf||'--')+'\n\n';
+    t+='Bedrijf: '+(selectedBedrijf||'â')+'\n\n';
     t+='KLANT\n';
-    t+='Naam: '+(naam||'--')+'\n';
-    t+='Bedrijfsnaam: '+(bedrijfKlant||'--')+'\n';
-    t+='Telefoon: '+(tel||'--')+'\n';
-    t+='E-mail: '+(emailKlant||'--')+'\n';
-    t+='Type: '+(selectedType||'--')+'\n\n';
+    t+='Naam: '+(naam||'â')+'\n';
+    t+='Bedrijfsnaam: '+(bedrijfKlant||'â')+'\n';
+    t+='Telefoon: '+(tel||'â')+'\n';
+    t+='E-mail klant: '+(emailKlant||'â')+'\n';
+    t+='Type klant: '+(selectedType||'â')+'\n\n';
     t+='CONTACT\n';
     t+='Reden: '+redenLabel()+'\n';
     t+='Prioriteit: '+prioLabel()+'\n\n';
-    t+='OMSCHRIJVING\n'+(getOmschrijving()||'--')+'\n\n';
+    t+='OMSCHRIJVING\n'+(getOmschrijving()||'â')+'\n\n';
     if(selectedReden==='aanvraag'){
       const meters=document.getElementById('meters').value.trim();
       const hoogte=document.getElementById('hoogte').value;
       const product=document.getElementById('product').value;
       t+='AANVRAAG DETAILS\n';
-      t+='Meters: '+(meters||'--')+'\n';
-      t+='Hoogte: '+(hoogte||'--')+'\n';
-      t+='Product: '+(product||'--')+'\n\n';
+      t+='Meters: '+(meters||'â')+'\n';
+      t+='Hoogte: '+(hoogte||'â')+'\n';
+      t+='Product: '+(product||'â')+'\n\n';
     }
     if(selectedReden==='levering'){
       t+='ORDER DETAILS\n';
-      t+='Relatienummer: '+(document.getElementById('leveringRelatie').value.trim()||'--')+'\n';
-      t+='Ordernummer: '+(document.getElementById('leveringOrder').value.trim()||'--')+'\n\n';
+      t+='Relatienummer: '+(document.getElementById('leveringRelatie').value.trim()||'â')+'\n';
+      t+='Ordernummer: '+(document.getElementById('leveringOrder').value.trim()||'â')+'\n\n';
     }
     if(selectedReden==='planning'){
       t+='PLANNING DETAILS\n';
-      t+='Relatienummer: '+(document.getElementById('planningRelatie').value.trim()||'--')+'\n';
-      t+='Ordernummer: '+(document.getElementById('planningOrder').value.trim()||'--')+'\n\n';
+      t+='Relatienummer: '+(document.getElementById('planningRelatie').value.trim()||'â')+'\n';
+      t+='Ordernummer: '+(document.getElementById('planningOrder').value.trim()||'â')+'\n\n';
     }
     if(selectedReden==='factuur'){
       t+='FACTUUR DETAILS\n';
-      t+='Factuurnummer: '+(document.getElementById('factuurNummer').value.trim()||'--')+'\n';
-      t+='Relatienummer: '+(document.getElementById('factuurRelatie').value.trim()||'--')+'\n\n';
+      t+='Factuurnummer: '+(document.getElementById('factuurNummer').value.trim()||'â')+'\n';
+      t+='Relatienummer: '+(document.getElementById('factuurRelatie').value.trim()||'â')+'\n\n';
     }
-    t+='NOTITIES\n'+(notities||'--')+'\n';
+    t+='NOTITIES\n'+(notities||'â')+'\n';
     t+='\n======================';
     return t;
   }
+
   function buildOnderwerp(){
     const naam=document.getElementById('naam').value.trim()||'onbekend';
-    return '['+prioLabel()+'] '+redenLabel()+' - '+naam+(selectedBedrijf?' ['+selectedBedrijf+']':'');
+    return '['+prioLabel()+'] '+redenLabel()+' â '+naam+(selectedBedrijf?' ['+selectedBedrijf+']':'');
   }
+
   function showToast(msg,type){
     const t=document.getElementById('toast');
     t.className='toast '+type; t.textContent=msg; t.style.display='block';
     setTimeout(()=>{ t.style.display='none'; },5000);
   }
+
   function validate(){
     const naam=document.getElementById('naam').value.trim();
     const tel=document.getElementById('telefoon').value.trim();
@@ -345,14 +366,19 @@
     }
     return true;
   }
+
   async function stuurMail(naar, naamOntvanger, btn){
     if(!validate()) return;
     btn.classList.add('loading');
     const onderwerp=buildOnderwerp();
     const inhoud=buildInhoud();
     try {
-      await emailjs.send('service_1hb0k4y', 'template_3t4l5sp', { naar, onderwerp, inhoud });
-      showToast('Verstuurd naar '+naamOntvanger+'!','success');
+      await emailjs.send('service_1hb0k4y', 'template_3t4l5sp', {
+        naar: naar,
+        onderwerp: onderwerp,
+        inhoud: inhoud
+      });
+      showToast('â Verstuurd naar '+naamOntvanger+'!','success');
       const now=new Date();
       document.getElementById('ts').textContent='Verzonden om '+now.toLocaleTimeString('nl-NL',{hour:'2-digit',minute:'2-digit'});
     } catch(e){
