@@ -270,34 +270,42 @@
     const notities=document.getElementById('notities').value.trim();
     let t='=== TERUGBELVERZOEK ===\n';
     t+='Datum: '+ts+'\n';
-    t+='Bedrijf: '+(selectedBedrijf||'niet opgegeven')+'\n\n';
+    t+='Bedrijf: '+(selectedBedrijf||'--')+'\n\n';
     t+='KLANT\n';
-    t+='Naam: '+(naam||'-')+'\n';
-    if(bedrijfKlant) t+='Bedrijf: '+bedrijfKlant+'\n';
-    t+='Telefoon: '+(tel||'-')+'\n';
-    if(emailKlant) t+='E-mail: '+emailKlant+'\n';
-    t+='Type: '+(selectedType||'onbekend')+'\n\n';
-    t+='CONTACT\nReden: '+redenLabel()+'\nPrioriteit: '+prioLabel()+'\n\n';
-    t+='OMSCHRIJVING\n'+getOmschrijving()+'\n';
+    t+='Naam: '+(naam||'--')+'\n';
+    t+='Bedrijfsnaam: '+(bedrijfKlant||'--')+'\n';
+    t+='Telefoon: '+(tel||'--')+'\n';
+    t+='E-mail: '+(emailKlant||'--')+'\n';
+    t+='Type: '+(selectedType||'--')+'\n\n';
+    t+='CONTACT\n';
+    t+='Reden: '+redenLabel()+'\n';
+    t+='Prioriteit: '+prioLabel()+'\n\n';
+    t+='OMSCHRIJVING\n'+(getOmschrijving()||'--')+'\n\n';
+    if(selectedReden==='aanvraag'){
+      const meters=document.getElementById('meters').value.trim();
+      const hoogte=document.getElementById('hoogte').value;
+      const product=document.getElementById('product').value;
+      t+='AANVRAAG DETAILS\n';
+      t+='Meters: '+(meters||'--')+'\n';
+      t+='Hoogte: '+(hoogte||'--')+'\n';
+      t+='Product: '+(product||'--')+'\n\n';
+    }
     if(selectedReden==='levering'){
-      const r=document.getElementById('leveringRelatie').value.trim();
-      const o=document.getElementById('leveringOrder').value.trim();
-      if(r) t+='Relatienummer: '+r+'\n';
-      if(o) t+='Ordernummer: '+o+'\n';
+      t+='ORDER DETAILS\n';
+      t+='Relatienummer: '+(document.getElementById('leveringRelatie').value.trim()||'--')+'\n';
+      t+='Ordernummer: '+(document.getElementById('leveringOrder').value.trim()||'--')+'\n\n';
     }
     if(selectedReden==='planning'){
-      const r=document.getElementById('planningRelatie').value.trim();
-      const o=document.getElementById('planningOrder').value.trim();
-      if(r) t+='Relatienummer: '+r+'\n';
-      if(o) t+='Ordernummer: '+o+'\n';
+      t+='PLANNING DETAILS\n';
+      t+='Relatienummer: '+(document.getElementById('planningRelatie').value.trim()||'--')+'\n';
+      t+='Ordernummer: '+(document.getElementById('planningOrder').value.trim()||'--')+'\n\n';
     }
     if(selectedReden==='factuur'){
-      const f=document.getElementById('factuurNummer').value.trim();
-      const r=document.getElementById('factuurRelatie').value.trim();
-      if(f) t+='Factuurnummer: '+f+'\n';
-      if(r) t+='Relatienummer: '+r+'\n';
+      t+='FACTUUR DETAILS\n';
+      t+='Factuurnummer: '+(document.getElementById('factuurNummer').value.trim()||'--')+'\n';
+      t+='Relatienummer: '+(document.getElementById('factuurRelatie').value.trim()||'--')+'\n\n';
     }
-    if(notities) t+='\nNOTITIES\n'+notities+'\n';
+    t+='NOTITIES\n'+(notities||'--')+'\n';
     t+='\n======================';
     return t;
   }
